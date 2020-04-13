@@ -12,7 +12,7 @@ import './index.css'
 import SelectedFolder from './SelectedFolder';
 import SelectedNote from './SelectedNote';
 import SelectedFolderSideBar from './SelectedFolderSideBar';
-import { API_TOKEN } from'./config.js'
+import { API_TOKEN, SERVER_URL } from'./config.js'
 
 class App extends React.Component {
   constructor(props) {
@@ -25,8 +25,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    console.log(`${SERVER_URL}/api/folders`)
     console.log('TOKEN', API_TOKEN)
-    fetch('http://localhost:8000/api/folders', {
+    fetch(`${SERVER_URL}/api/folders`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -48,7 +49,7 @@ class App extends React.Component {
           folders: res
         })
       })
-    fetch('http://localhost:8000/api/notes', {
+    fetch(`${SERVER_URL}/api/notes`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -74,7 +75,7 @@ class App extends React.Component {
 
   addNote = (noteToAdd, folderId, noteContent, noteId) => {
     console.log(noteToAdd, folderId, noteContent, noteId)
-    fetch(`http://localhost:8000/api/notes`, {
+    fetch(`${SERVER_URL}/api/notes`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -99,7 +100,7 @@ class App extends React.Component {
   
   addFolder = (folderToAdd, createdId) => {
     console.log('the stuff:', folderToAdd, createdId)
-    fetch(`http://localhost:8000/api/folders`, {
+    fetch(`${SERVER_URL}/api/folders`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -125,7 +126,7 @@ class App extends React.Component {
   }
 
   deleteNote = (noteId) => {
-    fetch(`http://localhost:8000/api/notes/${noteId}`, {
+    fetch(`${SERVER_URL}/api/notes/${noteId}`, {
       method: 'DELETE',
       headers: {
         'content-type': 'application/json',
