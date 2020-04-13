@@ -24,9 +24,13 @@ class App extends React.Component {
     }
   }
 
+  refreshPage = () => {
+    window.location.reload(false);
+  }
+
   componentDidMount() {
-    console.log(`${SERVER_URL}/api/folders`)
-    console.log('TOKEN', API_TOKEN)
+    //console.log(`${SERVER_URL}/api/folders`)
+    //console.log('TOKEN', API_TOKEN)
     fetch(`${SERVER_URL}/api/folders`, {
       method: 'GET',
       headers: {
@@ -44,7 +48,7 @@ class App extends React.Component {
         return response.json()
       })
       .then(res => {
-        console.log(res)
+        //console.log(res)
         this.setState({
           folders: res
         })
@@ -66,7 +70,7 @@ class App extends React.Component {
         return response.json()
       })
       .then(res => {
-        console.log(res)
+        //console.log(res)
         this.setState({
           notes: res
         })
@@ -74,7 +78,7 @@ class App extends React.Component {
   }
 
   addNote = (noteToAdd, folderId, noteContent, noteId) => {
-    console.log(noteToAdd, folderId, noteContent, noteId)
+    //console.log(noteToAdd, folderId, noteContent, noteId)
     fetch(`${SERVER_URL}/api/notes`, {
       method: 'POST',
       headers: {
@@ -99,7 +103,7 @@ class App extends React.Component {
   }
   
   addFolder = (folderToAdd, createdId) => {
-    console.log('the stuff:', folderToAdd, createdId)
+    //console.log('the stuff:', folderToAdd, createdId)
     fetch(`${SERVER_URL}/api/folders`, {
       method: 'POST',
       headers: {
@@ -115,17 +119,18 @@ class App extends React.Component {
       return res.json()
     })
     .then(response => {
-      console.log(response, '**')
+      //console.log(response, '**')
       return response
     })
-    console.log(createdId)
-    console.log(folderToAdd)
+    //console.log(createdId)
+    //console.log(folderToAdd)
     this.setState({ folders: [...this.state.folders, {id: createdId, title: folderToAdd}]})
   
     
   }
 
   deleteNote = (noteId) => {
+    console.log("note_id", noteId)
     fetch(`${SERVER_URL}/api/notes/${noteId}`, {
       method: 'DELETE',
       headers: {
@@ -135,13 +140,16 @@ class App extends React.Component {
     })
     //const notes = this.state.notes
     //console.log(notes)
-    //console.log(noteName);
-    let notes = this.state.notes.filter(note=> note.id !== noteId)
-    //console.log(notes) 
+    //console.log(noteId);
+    //console.log(this.state.notes)
+    let notes = this.state.notes.filter(note=> note.note_id != noteId)
+    //console.log('notes', notes) 
     this.setState({
       notes
     })
-    console.log(this.state.notes)
+    
+    //console.log('state', this.state)
+    //this.refreshPage()
   }
   
   render() {

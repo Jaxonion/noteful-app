@@ -23,7 +23,7 @@ export default class SelectedFolder extends React.Component {
         //console.log('selectedNote', selectedNotes)
         const foldersNotes = selectedNotes.map((note) => {
             return(
-                <div key={note.id} id={note.title} className='note'>
+                <div key={note.id} id={note.note_id} className='note'>
                     <Link to={`/note/${note.note_id}`}>{note.title}</Link>
                     <button
                         className='deleteButton'

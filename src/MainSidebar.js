@@ -8,7 +8,7 @@ class MainSidebar extends React.Component {
     render() {
         let value = this.context;
         const folders = value.folders.map((folder, i) => {
-            console.log('folder_id', folder)
+            //console.log('folder_id', folder)
             return(
                 <AddFolder history={this.props.history} i={i} folderId={folder.id} folderName={folder.title}></AddFolder>
             )

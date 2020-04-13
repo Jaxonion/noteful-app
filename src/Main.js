@@ -11,17 +11,16 @@ class Main extends React.Component {
     }
     render() {
         let value = this.context;
-        console.log(this.props)
+        //console.log(this.props)
         const notes = value.notes.map((note, i) => {
+            //console.log(note.note_id)
             return(
-                
-                <div key={i} id={note.not_id} className='note'>
+                <div key={note.id} id={note.note_id} className='note'>
                     <Link to={`/note/${note.note_id}`}>{note.title}</Link>
                     <button
                         className='deleteButton'
                         onClick={e => this.removeNote(e.target.parentElement.id)}>Delete</button>
                 </div>
-                
                
             )
         })
