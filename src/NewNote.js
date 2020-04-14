@@ -8,7 +8,8 @@ class NewNote extends React.Component {
         this.state = {
             note: {
                 name: '',
-                touched: false
+                touched: false,
+                content: ''
                 
             }
         }
@@ -25,7 +26,7 @@ class NewNote extends React.Component {
     }
 
     validateNote = () => {
-        const {name, touched} = this.state.note;
+        const {name, touched, content} = this.state.note;
         if(!touched) {
             return 'no name'
         }
@@ -35,6 +36,26 @@ class NewNote extends React.Component {
         if(name === '') {
             return 'no name'
         }
+        if(!content) {
+            return 'no content'
+        }
+        if(content && content.length < 1) {
+            return 'no content'
+        }
+        if(content === '') {
+            return 'no content'
+        }
+    }
+
+    updateContent = (content) => {
+        this.setState({
+            note: {
+                name: this.state.note.name,
+                touched: this.state.note.touched,
+                content: content
+            }
+        })
+        //console.log('the note', this.state.note)
     }
 
     updateState = (name, touched) => {
@@ -42,7 +63,9 @@ class NewNote extends React.Component {
         this.setState({
             note: {
                 name: name,
-                touched: touched
+                touched: touched,
+                content: this.state.note.content
+
             }
         })
     }
@@ -52,7 +75,7 @@ class NewNote extends React.Component {
         //let noteName = document.getElementById('noteName').value;
 
         let value = this.context;
-        console.log('value:', value)
+        //console.log('value:', value)
         const options = value.folders.map((folder, id) => {
             return(
                 <option value={folder.id}>{folder.title}</option>
@@ -72,7 +95,7 @@ class NewNote extends React.Component {
 
                         <label>Content</label>
 
-                        <input type='text' id='noteContent' placeholder='Content' />
+                        <input onChange={(content) => this.updateContent(document.getElementById('noteContent').value)} type='text' id='noteContent' placeholder='Content' />
 
                         <select name='folderName' id='folderId'>
                             {options}
